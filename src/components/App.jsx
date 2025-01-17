@@ -9,10 +9,11 @@ import SearchBox from '../components/SearchBox/SearchBox';
 import styles from '../components/App.module.css';
 
 const App = () => {
-  const contacts = useSelector(state => state.contacts.items);
-  const filter = useSelector(state => state.filters.name);
+  const contacts = useSelector(state => state.contacts.items);  
+  const filter = useSelector(state => state.filters.name);  
   const dispatch = useDispatch();
 
+  
   useEffect(() => {
     const savedContacts = JSON.parse(localStorage.getItem('contacts'));
     if (savedContacts) {
@@ -20,20 +21,22 @@ const App = () => {
     }
   }, [dispatch]);
 
-  const handleFilterChange = e => {
+  
+  const handleFilterChange = (e) => {
     dispatch(changeFilter(e.target.value));
   };
 
+  
   const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
+    contact.name.toLowerCase().includes(filter.toLowerCase())  
   );
 
   return (
     <div className={styles.container}>
       <h1>Phonebook</h1>
-      <ContactForm />
-      <SearchBox filter={filter} onFilterChange={handleFilterChange} />
-      <ContactList contacts={filteredContacts} />
+      <ContactForm />  
+      <SearchBox />  
+      <ContactList contacts={filteredContacts} />  
     </div>
   );
 };
