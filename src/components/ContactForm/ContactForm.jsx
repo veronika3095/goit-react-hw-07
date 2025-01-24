@@ -1,12 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-escape */
-
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { nanoid } from 'nanoid';
-import { addContact } from '../../redux/contactsSlice';
+import { addContact } from '../../redux/contactsOps';
 import styles from './ContactForm.module.css';
 
 const validationSchema = Yup.object({
@@ -26,8 +24,7 @@ const ContactForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {
-    const newContact = { ...values, id: nanoid() };
-    dispatch(addContact(newContact));
+    dispatch(addContact(values));
     resetForm();
   };
 
@@ -52,7 +49,9 @@ const ContactForm = () => {
           className={styles.input}
         />
         <ErrorMessage name="number" component="div" className={styles.error} />
-        <button type="submit" className={styles.submitButton}>Add Contact</button>
+        <button type="submit" className={styles.submitButton}>
+          Add Contact
+        </button>
       </Form>
     </Formik>
   );
